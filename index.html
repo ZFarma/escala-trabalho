@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Escala de Trabalho</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+  <h1>Cadastro de Escala</h1>
+  <form id="formEscala">
+    <input type="text" id="nome" placeholder="Nome do funcionário" required />
+    <input type="text" id="cargo" placeholder="Cargo" required />
+    <input type="date" id="data" required />
+    <input type="time" id="horaInicio" required />
+    <input type="time" id="horaFim" required />
+    <button type="submit">Adicionar à Escala</button>
+  </form>
+
+  <h2>Filtrar Escalas</h2>
+  <input type="date" id="filtroData" />
+  <input type="text" id="filtroNome" placeholder="Buscar por nome" />
+  <button onclick="aplicarFiltro()">Aplicar Filtro</button>
+  <button onclick="limparFiltro()">Limpar</button>
+
+  <h2>Registros Cadastrados</h2>
+  <table id="tabelaRegistros">
+    <thead>
+      <tr>
+        <th>Nome</th><th>Cargo</th><th>Data</th><th>Início</th><th>Fim</th><th>Ações</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <h2>Visualização da Escala</h2>
+  <div id="chart_div"></div>
+  <button id="exportarCSV">Exportar CSV</button>
+  <button id="exportarPDF">Exportar PDF</button>
+
+  <script src="script.js"></script>
+</body>
+</html>

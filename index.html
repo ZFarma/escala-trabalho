@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="style.css">
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 </head>
 <body>
   <h1>Cadastro de Escala</h1>
@@ -23,6 +24,10 @@
   <input type="text" id="filtroNome" placeholder="Buscar por nome" />
   <button onclick="aplicarFiltro()">Aplicar Filtro</button>
   <button onclick="limparFiltro()">Limpar</button>
+
+  <h2>Importar de Planilha (.csv)</h2>
+  <input type="file" id="csvFile" accept=".csv" />
+  <button onclick="importarCSV()">Importar</button>
 
   <h2>Registros Cadastrados</h2>
   <table id="tabelaRegistros">

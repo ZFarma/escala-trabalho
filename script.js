@@ -91,9 +91,10 @@ function drawChart() {
   data.addColumn('string', 'Dependência');
 
   getRegistrosFiltrados().forEach(r => {
+    const dataFormatada = r.inicio.toLocaleDateString();
     data.addRow([
       r.id.toString(),
-      r.nome,
+      `${dataFormatada} - ${r.nome}`,
       r.cargo,
       r.inicio,
       r.fim,
@@ -172,3 +173,38 @@ document.getElementById('exportarPDF').addEventListener('click', async function 
 
   doc.save("escala_de_trabalho.pdf");
 });
+
+function importarCSV() {
+  const file = document.getElementById("csvFile").files[0];
+  if (!file) {
+    alert("Selecione um arquivo CSV.");
+    return;
+  }
+
+  Papa.parse(file, {
+    header: true,
+    skipEmptyLines: true,
+    complete: function(results) {
+      results.data.forEach((row, index) => {
+        try {
+          const [ano, mes, dia] = row["Data"].split("-");
+          const [hIni, mIni] = row["Hora Início"].split(":");
+          const [hFim, mFim] = row["Hora Fim"].split(":");
+
+          registros.push({
+            id: Date.now() + index,
+            nome: row["Nome"],
+            cargo: row["Cargo"],
+            inicio: new Date(ano, mes - 1, dia, hIni, mIni),
+            fim: new Date(ano, mes - 1, dia, hFim, mFim)
+          });
+        } catch (err) {
+          console.error("Erro ao importar linha:", row, err);
+        }
+      });
+
+      aplicarFiltro();
+      alert("Importação concluída!");
+    }
+  });
+}
